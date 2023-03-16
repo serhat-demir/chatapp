@@ -22,6 +22,9 @@ change directory to server: <br/>
 install packages: <br/>
 `npm install`
 
+change database credentials in: <br/>
+`config.js`
+
 run project: <br/>
 `node app.js`
 
