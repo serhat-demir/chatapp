@@ -12,8 +12,8 @@ change directory to client: <br/>
 `cd chatapp-web/client`
 
 change redirect urls with yours: <br/>
-`index.html -> row 52` <br/>
-`chat.html -> row 52`
+`index.html -> row 37, 52, 62` <br/>
+`chat.html -> row 40, 52, 72`
 
 ### server
 change directory to server: <br/>
