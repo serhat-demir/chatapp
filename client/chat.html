@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Chat Application</title>
+</head>
+<body class="bg-dark mt-5 mx-5">
+    <div class="row">
+        <div class="col-md-6 px-4 py-3 rounded text-light mx-auto bg-light" style="max-height: 500px;">
+            <h1 class="text-dark text-center">Chat App</h1>
+            <textarea name="" id="txtMessages" class="form-control w-100 my-2" rows="10" disabled style="resize: none;"></textarea>
+
+            <div class="d-flex justify-content-center">
+                <div class="input-group w-100">
+                    <input type="text" class="form-control rounded mr-2" id="txtInput" placeholder="Type something..."/>
+                    <button class="btn btn-primary" type="button" id="btnSend" data-mdb-ripple-color="dark">
+                        Send
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const params = new Proxy(new URLSearchParams(window.location.search), {
+            get: (searchParams, prop) => searchParams.get(prop),
+        });
+        const token = params.token;
+    </script>
+
+    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+    <script>
+        const txtMessages = document.querySelector("#txtMessages");
+        const txtInput = document.querySelector("#txtInput");
+        const btnSend = document.querySelector("#btnSend");
+
+        const socket = io("http://localhost:3000");
+        socket.on('message', (data) => {
+            if (txtMessages.value.length > 0) {
+                txtMessages.value += "\n";
+            }
+
+            txtMessages.value += data.sender + ": " + data.message;
+            txtMessages.scrollTop = txtMessages.scrollHeight;
+        });
+
+        socket.on('error', (data) => {
+            alert(data.message);
+            window.location.href = "file:///C:/xampp/htdocs/chatapp/client/index.html";
+        });
+
+        function sendMessage() {
+            const msg = txtInput.value;
+            socket.emit('message', {
+                message: msg,
+                token: token
+            });
+
+            txtInput.value = "";
+        }
+
+        btnSend.addEventListener('click', () => {
+            sendMessage();
+        });
+
+        txtInput.addEventListener('keydown', (e) => {
+            if (e.keyCode == 13) { // enter
+                sendMessage();
+            }
+        });
+
+        async function getMessages() {
+           const response = await fetch("http://localhost:3000/messages", {
+                method: "GET",
+                headers: {
+                    "X-Auth-Token": token
+                }
+           });
+           const messages = await response.json();
+
+           for (let i = 0; i < messages.data.length; i++) {
+                let msg = messages.data[i];
+                txtMessages.value += msg.message_sender + ": " + msg.message_text;
+                if (i < messages.data.length - 1) {
+                    txtMessages.value += "\n";
+                }
+           }
+
+           txtMessages.scrollTop = txtMessages.scrollHeight;
+        }
+
+        getMessages();
+    </script>
+</body>
+</html>

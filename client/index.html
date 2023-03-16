@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Chat Application</title>
+</head>
+<body class="bg-dark mt-5 mx-5">
+    <div class="row">
+        <div class="col-md-6 px-4 py-3 rounded text-light mx-auto bg-light" style="max-height: 500px;">
+            <h1 class="text-dark text-center">Chat App</h1>
+
+            <label for="txtUsername" class="lead mb-0 font-weight-bold text-dark">Username</label>
+            <input type="text" class="form-control rounded" id="txtUsername" placeholder="Enter your username..."/>
+
+            <label for="txtPassword" class="lead mb-0 font-weight-bold text-dark mt-2">Password</label>
+            <input type="password" class="form-control rounded mb-2" id="txtPassword" placeholder="Enter your password..."/>
+            
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary mr-1" id="btnRegister">Register</button>
+                <button class="btn btn-success" id="btnLogin">Login</button>
+            </div>
+    </div>
+
+    <script>
+        const txtUsername = document.querySelector("#txtUsername");
+        const txtPassword = document.querySelector("#txtPassword");
+        const btnLogin = document.querySelector("#btnLogin");
+        const btnRegister = document.querySelector("#btnRegister");
+
+        btnLogin.addEventListener('click', async () => {
+            const username = txtUsername.value;
+            const password = txtPassword.value;
+
+            const response = await fetch("http://192.168.1.39:3000/login", {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_name: username,
+                    user_password: password
+                })
+            });
+            const responseJson = await response.json();
+
+            if (responseJson.code == 200) {
+                const token = responseJson.data.user_token;
+                window.location.href = "file:///C:/xampp/htdocs/chatapp/client/chat.html?token=" + token;
+            } else {
+                alert(responseJson.message);
+            }
+        });
+
+        btnRegister.addEventListener('click', async () => {
+            const username = txtUsername.value;
+            const password = txtPassword.value;
+
+            const response = await fetch("http://192.168.1.39:3000/register", {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_name: username,
+                    user_password: password
+                })
+            });
+            const responseJson = await response.json();
+            alert(responseJson.message);
+        });
+    </script>
+</body>
+</html>
