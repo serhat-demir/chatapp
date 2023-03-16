@@ -39,3 +39,12 @@ run project: <br/>
 | message_id | integer | pk, ai, not null |
 | message_text | text | not null |
 | message_sender | integer | fk(users.user_id), not null |
+
+# demo
+### video
+[Chat Application Web Client](https://www.youtube.com/watch?v=glGJ0DM7jEg "Chat Application Web Client")
+
+### screenshots
+[![login](https://img001.prntscr.com/file/img001/oR-ghWZ3Rdy9C5wfLwePGQ.png "login")](https://img001.prntscr.com/file/img001/oR-ghWZ3Rdy9C5wfLwePGQ.png "login")
+
+[![chat](https://img001.prntscr.com/file/img001/U3s-kteITTGkdDLfD1n_Ng.png "chat")](https://img001.prntscr.com/file/img001/U3s-kteITTGkdDLfD1n_Ng.png "chat")
