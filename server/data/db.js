@@ -5,8 +5,8 @@ let connection = mysql.createConnection(config.db);
 connection.connect((error) => {
     if (error)
         console.log(error);
-
-    console.log("mysql connected");
+    else
+        console.log("mysql connected");
 });
 
 module.exports = connection.promise();
