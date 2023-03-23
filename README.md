@@ -1,34 +1,34 @@
 # chatapp-web
-backend and web client of my realtime chat application
+Backend and web client of my realtime chat application
 
-# installation
-**note:** before you run this project, nodejs and mysql have to be installed on your computer
+# Installation
+**Note:** Before you run this project, nodejs and mysql have to be installed on your computer
 
-clone project: <br/>
+Clone project: <br/>
 `git clone https://github.com/serhat-demir/chatapp-web`
 
-### client
-change directory to client: <br/>
+### Client
+Change directory to client: <br/>
 `cd chatapp-web/client`
 
-change redirect urls with yours: <br/>
+Change redirect urls with yours: <br/>
 `index.html -> row 37, 52, 62` <br/>
 `chat.html -> row 40, 52, 72`
 
-### server
-change directory to server: <br/>
+### Server
+Change directory to server: <br/>
 `cd ../server`
 
-install packages: <br/>
+Install packages: <br/>
 `npm install`
 
-change database credentials in: <br/>
+Change database credentials in: <br/>
 `config.js`
 
-run project: <br/>
+Run project: <br/>
 `node app.js`
 
-## database schema
+## Database schema
 ### users table
 | column | type | description |
 | --- | --- | --- |
@@ -43,11 +43,11 @@ run project: <br/>
 | message_text | text | not null |
 | message_sender | integer | fk(users.user_id), not null |
 
-# demo
-### video
-[Chat Application Web Client](https://www.youtube.com/watch?v=glGJ0DM7jEg "Chat Application Web Client")
+# Demo
+### Video
+[Chat Application Demo on Youtube](https://www.youtube.com/watch?v=Ny3KEzlY5e4 "Chat Application Demo on Youtube")
 
-### screenshots
+### Screenshots
 [![login](https://img001.prntscr.com/file/img001/oR-ghWZ3Rdy9C5wfLwePGQ.png "login")](https://img001.prntscr.com/file/img001/oR-ghWZ3Rdy9C5wfLwePGQ.png "login")
 
 [![chat](https://img001.prntscr.com/file/img001/U3s-kteITTGkdDLfD1n_Ng.png "chat")](https://img001.prntscr.com/file/img001/U3s-kteITTGkdDLfD1n_Ng.png "chat")
