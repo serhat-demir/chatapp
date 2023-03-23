@@ -37,8 +37,8 @@ io.on('connection', (socket) => {
         if (tokenDecoded.isValid) {
             if (newMessage(data.message, tokenDecoded.data._id)) {            
                 io.emit('message', {
-                    message: data.message,
-                    sender: tokenDecoded.data._name
+                    message_text: data.message,
+                    message_sender: tokenDecoded.data._name
                 });
             }
         } else {
